@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'todoItem.dart';
-import 'dataaccess.dart';
+import 'todoitem.dart';
 import 'addtodoitem.dart';
 
 class TodoListScreen extends StatefulWidget {
@@ -111,7 +110,6 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // _todoItems.sort();
     var todoshow;
     var completeshow;
     var todoItemWidgets = _todoItems.map(_createTodoItemWidget).toList();
