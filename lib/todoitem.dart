@@ -3,8 +3,8 @@ import 'package:sqflite/sqflite.dart';
 
 final String todoTable = "todo";
 final String idColumn = "_id";
-final String todoItemColumn = "title";
-final String isDoneColumn = "done";
+final String titleColumn = "title";
+final String doneColumn = "done";
 
 class TodoItem extends Comparable {
   int id;
@@ -15,8 +15,8 @@ class TodoItem extends Comparable {
   
   TodoItem.fromMap(Map<String, dynamic> map)
   : id = map[idColumn],
-    title = map[todoItemColumn],
-    done = map[isDoneColumn] == 1;  
+    title = map[titleColumn],
+    done = map[doneColumn] == 1;  
 
   @override
   int compareTo(other) {
@@ -31,8 +31,8 @@ class TodoItem extends Comparable {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      todoItemColumn: title,
-      isDoneColumn: done ? 1 : 0
+      titleColumn: title,
+      doneColumn: done ? 1 : 0
     };
     // Allow for auto-increment
     if (id != null) {
@@ -54,7 +54,6 @@ class DataAccess {
 
   Future open() async {
 
-    var databasesPath = await getDatabasesPath();
     String path = "todo.db";
 
     _db = await openDatabase(path, version: 1,
@@ -62,8 +61,8 @@ class DataAccess {
           await db.execute('''
             create table $todoTable ( 
             $idColumn integer primary key autoincrement, 
-            $todoItemColumn text not null,
-            $isDoneColumn integer not null)
+            $titleColumn text not null,
+            $doneColumn integer not null)
             ''');
     });
   }
@@ -83,6 +82,6 @@ class DataAccess {
   }
   
   Future deleteTodo() {
-    return _db.delete(todoTable, where: "$isDoneColumn = ?", whereArgs: [true]);
+    return _db.delete(todoTable, where: "$doneColumn = ?", whereArgs: [true]);
   }
 }
