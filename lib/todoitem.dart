@@ -1,20 +1,20 @@
 class TodoItem extends Comparable {
   int id;
-  final String name;
-  bool isComplete;
+  final String title;
+  bool done;
 
-  TodoItem({this.name, this.isComplete = false});
+  TodoItem({this.title, this.done = false});
   
   TodoItem.fromMap(Map<String, dynamic> map)
   : id = map["id"],
-    name = map["name"],
-    isComplete = map["isComplete"] == 1;  
+    title = map["name"],
+    done = map["isComplete"] == 1;  
 
   @override
   int compareTo(other) {
-    if (this.isComplete && !other.isComplete) {
+    if (this.done && !other.done) {
       return 1;
-    } else if (!this.isComplete && other.isComplete) {
+    } else if (!this.done && other.done) {
       return -1;
     } else {
       return this.id.compareTo(other.id);
@@ -23,8 +23,8 @@ class TodoItem extends Comparable {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      "name": name,
-      "isComplete": isComplete ? 1 : 0
+      "name": title,
+      "isComplete": done ? 1 : 0
     };
     // Allow for auto-increment
     if (id != null) {

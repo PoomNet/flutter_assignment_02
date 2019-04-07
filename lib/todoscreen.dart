@@ -28,7 +28,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
     _dataAccess.open().then((result) {
       _dataAccess.getTodoItems().then((r) {
         for (var i = 0; i < r.length; i++) {
-          if (r[i].isComplete == false) {
+          if (r[i].done == false) {
             setState(() {
               _todoItems.add(r[i]) ;
             });
@@ -49,7 +49,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
         context, MaterialPageRoute(builder: (context) => AddTodoItemScreen()));
     _dataAccess.getTodoItems().then((r) {
       for (var i = 0; i < r.length; i++) {
-        if (r[i].isComplete == false) {
+        if (r[i].done == false) {
           setState(() {
             _todoItems.add(r[i]);
           });
@@ -65,11 +65,11 @@ class _TodoListScreenState extends State<TodoListScreen> {
   void _updateTodoCompleteStatus(TodoItem item, bool newStatus) {
     _todoItems = List();
     _completeItems = List();
-    item.isComplete = newStatus;
+    item.done = newStatus;
     _dataAccess.updateTodo(item);
     _dataAccess.getTodoItems().then((items) {
       for (var i = 0; i < items.length; i++) {
-        if (items[i].isComplete == false) {
+        if (items[i].done == false) {
           setState(() {
             _todoItems.add(items[i]);
           });
@@ -91,9 +91,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   Widget _createTodoItemWidget(TodoItem item) {
     return ListTile(
-      title: Text(item.name),
+      title: Text(item.title),
       trailing: Checkbox(
-        value: item.isComplete,
+        value: item.done,
         onChanged: (value) => _updateTodoCompleteStatus(item, value),
       ),
     );
@@ -101,9 +101,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
 
   Widget _createCompleteItemWidget(TodoItem item) {
     return ListTile(
-      title: Text(item.name),
+      title: Text(item.title),
       trailing: Checkbox(
-        value: item.isComplete,
+        value: item.done,
         onChanged: (value) => _updateTodoCompleteStatus(item, value),
       ),
     );

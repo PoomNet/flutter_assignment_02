@@ -37,7 +37,7 @@ class _AddTodoItemScreenState extends State<AddTodoItemScreen> {
                     child: Text("Save"),
                     onPressed: () {
                       if(_formKey.currentState.validate()){
-                        DataAccess().insertTodo(TodoItem(name: _todoNameController.text));
+                        DataAccess().insertTodo(TodoItem(title: _todoNameController.text));
                       Navigator.pop(context);
                       }
                     },

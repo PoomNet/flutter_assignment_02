@@ -24,8 +24,8 @@ class DataAccess {
           await db.execute('''
             create table $todoTable ( 
             id integer primary key autoincrement, 
-            name text not null,
-            isComplete integer not null)
+            title text not null,
+            done integer not null)
             ''');
     });
   }
@@ -45,6 +45,6 @@ class DataAccess {
   }
   
   Future deleteTodo() {
-    return _db.delete(todoTable, where: "isComplete = ?", whereArgs: [true]);
+    return _db.delete(todoTable, where: "done = ?", whereArgs: [true]);
   }
 }
