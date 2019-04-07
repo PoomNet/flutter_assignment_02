@@ -74,7 +74,6 @@ class DataAccess {
   }
 
   Future insertTodo(TodoItem item) {
-    print(item.toMap());
     return _db.insert(todoTable, item.toMap());
   }
 
